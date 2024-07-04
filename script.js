@@ -6,48 +6,103 @@ const textoResultado = document.querySelector(".texto-resultado");
 
 const perguntas = [
   {
-    enunciado:"Quem é o melhor do mundo?"
+    enunciado:"Quem é o melhor do mundo?",
     alternativas:[
-  "messi",
-  "messi",
+      {
+        texto: "messi",
+        afirmação: "afirmação"
+      },
+      {
+  texto: "messi",
+  afirmação: "afirmação"
+      }
   ]
 },
  {
-    enunciado:"quem é mais bonito?"
+    enunciado:"quem é mais bonito?",
     alternativas:[
-  "neymar",
-  "cr7",
+  {
+  texto: "neymar",
+  afirmação: "afirmação"
+  },
+      {
+  texto: "cr7",
+  afirmação: "afirmação"
   ]
 },
  {
     enunciado:"quem tem mais bola de ouro?"
     alternativas:[
-  "messi",
-  "cr7",
+  {
+  texto: "messi",
+  afirmação: "afirmação"
+  },
+     {
+  texto: "cr7",
+  afirmação: "afirmação"
   ]
 },
  {
     enunciado:"quem tem copa do mundo?"
     alternativas:[
-  "messi",
-  "cr7",
+  {
+  texto: "messi",
+  afirmação: "afirmação"
+  },
+     {
+  texto: "cr7",
+  afirmação: "afirmação"
   ]
 },
  {
     enunciado:"messi é the goat?"
     alternativas:[
-  "messi",
-  "messi",
+  {
+  texto: "messi",
+  afirmação: "afirmação"
+  },
+     {
+    texto: "messi",
+    afirmação: "afirmação"
+  }
   ]
 },
 ];
 
 let atual = 0;
 let perguntaAtual;
+let historiaFinal = ""; 
 
-function mostraPergunta(){
-  perguntaAtual = perguntas[atual];
-  caixaPerguntas.textContent = perguntaAtual.enunciado;
+function mostraPergunta() {
+ /*    if(atual >= perguntas.length){
+        mostraResultado();
+        return;
+    }   */ 
+    perguntaAtual = perguntas[atual];
+    caixaPerguntas.textContent = perguntaAtual.enunciado;
+ /* caixaAlternativas.textContent = ""; */
+    mostraAlternativas();
+}
+function mostraAlternativas() {
+    for(const alternativa of perguntaAtual.alternativas) {
+        const botaoAlternativas = document.createElement("button");
+        botaoAlternativas.textContent = alternativa.texto;
+        botaoAlternativas.addEventListener("click", () => respostaSelecionada(alternativa));
+        caixaAlternativas.appendChild(botaoAlternativas);
+    }
 }
 
+function respostaSelecionada(opcaoSelecionada){
+            const afirmacoes = opcaoSelecionada.afirmacoes; /* mudar para opcaoSelecionada.afirmacao*/
+            historiaFinal = afirmacoes; /* += afirmacoes + " "; */
+            atual++;
+            mostraPergunta();
+      }
+/*
+function mostraResultado(){
+    caixaPerguntas.textContent = "Em 2049..."
+    textoResultado.textContent = historiaFinal;
+    caixaAlternativas.textContent ="";
+}
+*/
 mostraPergunta();
